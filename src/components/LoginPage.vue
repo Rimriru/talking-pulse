@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
+import { useRouter } from 'vue-router';
 const username = ref('');
 
 const store = useUserStore();
+const router = useRouter();
 
-const handleLoginFormSubmit = () => store.setUser(username.value);
+const handleLoginFormSubmit = () => {
+  store.setUser(username.value);
+  router.push('/messages');
+};
 const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(username.value));
 </script>
 
