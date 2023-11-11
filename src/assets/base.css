@@ -10,7 +10,7 @@
 
 body {
   min-height: 100vh;
-  background-color: #ea526f;
+  background-color: rgb(249, 235, 192);
   transition:
     color 0.5s,
     background-color 0.5s;
@@ -34,4 +34,11 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
 }

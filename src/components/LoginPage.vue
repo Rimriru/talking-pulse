@@ -112,17 +112,16 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
           display: block;
           width: 100%;
           padding: 10px 15px;
-          background-color: #ea526f;
+          background-color: #ffc04c;
           border-radius: 8px;
 
           color: #fff;
           font-size: 1.1rem;
           font-weight: 500;
-          cursor: pointer;
           transition: background-color 0.5s ease;
 
           &:hover:enabled {
-            background-color: #f53256;
+            background-color: #f5b133;
           }
 
           &:disabled {
@@ -133,7 +132,7 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
 
         &:focus-within {
           label {
-            color: #ea526f;
+            color: #c38f2c;
           }
 
           input[type='text'] {

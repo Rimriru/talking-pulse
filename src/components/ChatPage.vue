@@ -1,6 +1,53 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from '@/stores/userStore';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+import { push, set } from '@firebase/database';
+import { messagesRef } from '../db';
 
-<template></template>
+const store = useUserStore();
+const router = useRouter();
+
+const logout = () => {
+  router.push('/login');
+  store.$reset();
+};
+
+const messages = ref([]);
+const message = ref('');
+
+const sendMessage = () => {
+  if (message.value) {
+    const userMessage = {
+      username: store.user.userName,
+      message: message.value
+    };
+    const newMessageRef = push(messagesRef);
+    set(newMessageRef, {
+      userMessage
+    });
+    message.value = '';
+  } else {
+    return;
+  }
+};
+</script>
+
+<template>
+  <div class="view chat">
+    <header>
+      <button class="logout" @click="logout">Выйти</button>
+      <h1>Привет, {{ store.user.userName }}!</h1>
+    </header>
+    <section class="chat-box"></section>
+    <footer>
+      <form @submit.prevent="sendMessage">
+        <input type="text" v-model="message" placeholder="Начните писать..." />
+        <button type="submit"></button>
+      </form>
+    </footer>
+  </div>
+</template>
 
 <style lang="scss">
 .view {
@@ -8,11 +55,10 @@
   justify-content: center;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #ea526f;
 
   &.chat {
     flex-direction: column;
-
+    max-width: clamp(288px, 600px, 40%);
     header {
       position: relative;
       display: block;
@@ -28,14 +74,21 @@
         outline: none;
         background: none;
 
-        color: #fff;
+        color: gray;
         font-size: 18px;
         margin-bottom: 10px;
         text-align: right;
+
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+
+        &:hover {
+          opacity: 0.6;
+        }
       }
 
       h1 {
-        color: #fff;
+        color: black;
       }
     }
 
@@ -99,6 +152,8 @@
 
       form {
         display: flex;
+        gap: 15px;
+        align-items: center;
 
         input[type='text'] {
           flex: 1 1 100%;
@@ -111,7 +166,7 @@
           display: block;
           width: 100%;
           padding: 10px 15px;
-          border-radius: 8px 0px 0px 8px;
+          border-radius: 8px;
 
           color: #333;
           font-size: 18px;
@@ -127,22 +182,34 @@
           }
         }
 
-        input[type='submit'] {
-          appearance: none;
-          border: none;
-          outline: none;
-          background: none;
+        button[type='submit'] {
+          padding: 0;
+          background: no-repeat center url('../assets/send-btn.svg');
+          background-size: contain;
+          width: 38px;
+          height: 38px;
+          transform: translateY(0);
+          transition: transform 0.8s ease;
 
-          display: block;
-          padding: 10px 15px;
-          border-radius: 0px 8px 8px 0px;
-
-          background-color: #ea526f;
-
-          color: #fff;
-          font-size: 18px;
-          font-weight: 700;
+          &:hover {
+            transform: translateY(-3px);
+          }
         }
+        //appearance: none;
+        //border: none;
+        // outline: none;
+        // background: none;
+
+        // display: block;
+        // padding: 10px 15px;
+        // border-radius: 0px 8px 8px 0px;
+
+        //background-color: #ea526f;
+
+        // color: #fff;
+        //font-size: 18px;
+        // font-weight: 700;
+        //}
       }
     }
   }
