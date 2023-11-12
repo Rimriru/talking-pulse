@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
-import { push, set } from '@firebase/database';
-import { messagesRef } from '../db';
+import { ref, onMounted } from 'vue';
+import { push, set, onValue, serverTimestamp } from '@firebase/database';
+import { messagesRef } from '../../db';
+import type { Messages } from './ChatPage.types';
 
 const store = useUserStore();
 const router = useRouter();
@@ -13,24 +14,39 @@ const logout = () => {
   store.$reset();
 };
 
-const messages = ref([]);
 const message = ref('');
 
 const sendMessage = () => {
   if (message.value) {
-    const userMessage = {
-      username: store.user.userName,
-      message: message.value
-    };
     const newMessageRef = push(messagesRef);
     set(newMessageRef, {
-      userMessage
+      username: store.user.userName,
+      message: message.value,
+      createdAt: serverTimestamp()
     });
     message.value = '';
   } else {
     return;
   }
 };
+
+onMounted(() => {
+  onValue(messagesRef, (snapshot) => {
+    const data = snapshot.val();
+    const messages: Messages = [];
+
+    Object.keys(data).forEach((key) => {
+      messages.push({
+        id: key,
+        username: data[key].username,
+        message: data[key].message,
+        createdAt: data[key].createdAt.toDate
+      });
+    });
+
+    store.setMessages(messages);
+  });
+});
 </script>
 
 <template>
@@ -39,7 +55,18 @@ const sendMessage = () => {
       <button class="logout" @click="logout">Выйти</button>
       <h1>Привет, {{ store.user.userName }}!</h1>
     </header>
-    <section class="chat-box"></section>
+    <section class="chat-box">
+      <div
+        v-for="message in store.messages"
+        :key="message.id"
+        :class="message.username === store.user.userName ? 'message current-user' : 'message'"
+      >
+        <div class="message-inner">
+          <div class="username">{{ message.username }}</div>
+          <div class="content">{{ message.message }}</div>
+        </div>
+      </div>
+    </section>
     <footer>
       <form @submit.prevent="sendMessage">
         <input type="text" v-model="message" placeholder="Начните писать..." />
@@ -184,7 +211,7 @@ const sendMessage = () => {
 
         button[type='submit'] {
           padding: 0;
-          background: no-repeat center url('../assets/send-btn.svg');
+          background: no-repeat center url('../../assets/send-btn.svg');
           background-size: contain;
           width: 38px;
           height: 38px;
@@ -195,21 +222,6 @@ const sendMessage = () => {
             transform: translateY(-3px);
           }
         }
-        //appearance: none;
-        //border: none;
-        // outline: none;
-        // background: none;
-
-        // display: block;
-        // padding: 10px 15px;
-        // border-radius: 0px 8px 8px 0px;
-
-        //background-color: #ea526f;
-
-        // color: #fff;
-        //font-size: 18px;
-        // font-weight: 700;
-        //}
       }
     }
   }

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from '@/components/LoginPage.vue';
-import ChatPage from '@/components/ChatPage.vue';
+import ChatPage from '@/components/ChatPage/ChatPage.vue';
 import { useUserStore } from '@/stores/userStore';
 
 const router = createRouter({
