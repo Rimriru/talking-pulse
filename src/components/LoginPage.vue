@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-<script setup lang="ts"></script>
-=======
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
@@ -16,20 +13,10 @@ const handleLoginFormSubmit = () => {
 };
 const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(username.value));
 </script>
->>>>>>> basic
 
 <template>
   <div class="view login">
     <h1>Talking Pulse</h1>
-<<<<<<< HEAD
-    <form class="login-form">
-      <p>Авторизация</p>
-      <label for="username">
-        Введите имя пользователя
-        <input type="text" placeholder="Имя" />
-        <button type="submit">Войти</button>
-      </label>
-=======
     <h2>Вдохновлённый на освоение Vue чат</h2>
     <form class="login-form" @submit.prevent="handleLoginFormSubmit">
       <div class="form-inner">
@@ -40,7 +27,6 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
           <button type="submit" :disabled="!handleUserNameInputValidation">Войти</button>
         </label>
       </div>
->>>>>>> basic
     </form>
   </div>
 </template>
@@ -50,12 +36,6 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
   justify-content: center;
   flex-direction: column;
   min-height: 100vh;
-<<<<<<< HEAD
-  background-color: #ea526f;
-
-  &.login {
-    align-items: center;
-=======
   margin: 0 auto;
 
   &.login {
@@ -71,29 +51,15 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
       font-family: 'Helvetica Neue';
     }
 
->>>>>>> basic
     .login-form {
       display: block;
       width: 100%;
       padding: 15px;
-<<<<<<< HEAD
-=======
       margin-top: 50px;
->>>>>>> basic
 
       .form-inner {
         display: block;
         background-color: #fff;
-<<<<<<< HEAD
-        padding: 50px 15px;
-        border-radius: 16px;
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-
-        h1 {
-          color: #aaa;
-          font-size: 28px;
-          margin-bottom: 30px;
-=======
         padding: 50px 25px;
         border-radius: 16px;
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
@@ -101,18 +67,13 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
         p {
           font-size: clamp(0.5rem, 0.3vw + 1.3rem, 2rem);
           margin-bottom: 20px;
->>>>>>> basic
         }
 
         label {
           display: block;
           margin-bottom: 5px;
           color: #aaa;
-<<<<<<< HEAD
-          font-size: 16px;
-=======
           font-size: 1rem;
->>>>>>> basic
           transition: 0.4s;
         }
 
@@ -142,11 +103,7 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
           }
         }
 
-<<<<<<< HEAD
-        input[type='submit'] {
-=======
         button[type='submit'] {
->>>>>>> basic
           appearance: none;
           border: none;
           outline: none;
@@ -155,14 +112,6 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
           display: block;
           width: 100%;
           padding: 10px 15px;
-<<<<<<< HEAD
-          background-color: #ea526f;
-          border-radius: 8px;
-
-          color: #fff;
-          font-size: 18px;
-          font-weight: 700;
-=======
           background-color: #ffc04c;
           border-radius: 8px;
 
@@ -179,16 +128,11 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
             opacity: 0.6;
             cursor: auto;
           }
->>>>>>> basic
         }
 
         &:focus-within {
           label {
-<<<<<<< HEAD
-            color: #ea526f;
-=======
             color: #c38f2c;
->>>>>>> basic
           }
 
           input[type='text'] {

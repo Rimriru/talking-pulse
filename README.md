@@ -1,46 +1,20 @@
 # talking-pulse
 
-This template should help get you started developing with Vue 3 in Vite.
+Talking pulse – это публичный чат, в который может зайти любой желающий и поделиться своими мыслями. 
+Данный проект был создан с целью освоения Vue3 Composition API, Pinia, Vue Router, Vite, Typescript, Firebase. На данном этапе готов базовый вариант приложения без хостинга, с использованием Realtime Database. 
 
-## Recommended IDE Setup
+## Идеи для улучшения
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+В дальнейшем планируется расширить приложение – добавить полноценные регистрацию и аутентификацию, возможность создания чата или присоединения к уже существующему, кастомизацию приложения и изменение данных прользователя.
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Инструкция по установке
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Запуск и hot-reload
 
 ```sh
 npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
