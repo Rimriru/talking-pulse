@@ -5,6 +5,7 @@ import { ref, onMounted } from 'vue';
 import { push, set, onValue, serverTimestamp } from '@firebase/database';
 import { messagesRef } from '../../db';
 import type { Messages } from './ChatPage.types';
+import timeConverter from '@/utils/timeConverter';
 
 const store = useUserStore();
 const router = useRouter();
@@ -40,7 +41,7 @@ onMounted(() => {
         id: key,
         username: data[key].username,
         message: data[key].message,
-        createdAt: data[key].createdAt.toDate
+        createdAt: data[key].createdAt
       });
     });
 
@@ -63,7 +64,16 @@ onMounted(() => {
       >
         <div class="message-inner">
           <div class="username">{{ message.username }}</div>
-          <div class="content">{{ message.message }}</div>
+          <div
+            :class="
+              message.username === store.user.userName
+                ? 'message-container'
+                : 'message-container opposite-user'
+            "
+          >
+            <div class="created-at">{{ timeConverter(message.createdAt) }}</div>
+            <div class="content">{{ message.message }}</div>
+          </div>
         </div>
       </div>
     </section>
@@ -139,11 +149,26 @@ onMounted(() => {
             padding-right: 15px;
           }
 
+          .message-container {
+            display: flex;
+            gap: 5px;
+            align-items: end;
+
+            &.opposite-user {
+              flex-direction: row-reverse;
+            }
+          }
+
+          .created-at {
+            font-size: 16px;
+            color: #888;
+          }
+
           .content {
             display: inline-block;
             padding: 10px 20px;
             background-color: #f3f3f3;
-            border-radius: 999px;
+            border-radius: 40px;
 
             color: #333;
             font-size: 18px;
@@ -161,9 +186,7 @@ onMounted(() => {
             max-width: 75%;
 
             .content {
-              color: #fff;
-              font-weight: 600;
-              background-color: #ea526f;
+              background-color: #faf5ea;
             }
           }
         }
