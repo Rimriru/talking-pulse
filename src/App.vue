@@ -3,5 +3,14 @@ import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <RouterView></RouterView>
+  <div class="background">
+    <RouterView></RouterView>
+  </div>
 </template>
+
+<style>
+.background {
+  background-image: url('./assets/waves.svg');
+  background-size: cover;
+}
+</style>

@@ -95,7 +95,7 @@ onMounted(() => {
 
   &.chat {
     flex-direction: column;
-    max-width: clamp(288px, 600px, 40%);
+    max-width: clamp(288px, 600px, 30%);
     header {
       position: relative;
       display: block;

@@ -40,7 +40,7 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
 
   &.login {
     align-items: center;
-    max-width: clamp(288px, 600px, 40%);
+    max-width: clamp(288px, 600px, 30%);
     h1 {
       font-size: clamp(2rem, 3vw + 1rem, 4rem);
       font-family: 'Pacifico';
