@@ -3,6 +3,8 @@ import { ref, computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router';
 const username = ref('');
+const password = ref('');
+const isEyeOpened = ref(false);
 
 const store = useUserStore();
 const router = useRouter();
@@ -11,89 +13,118 @@ const handleLoginFormSubmit = () => {
   store.setUser(username.value);
   router.push('/messages');
 };
+const handleEyeClick = () => (isEyeOpened.value = !isEyeOpened.value);
 const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(username.value));
+const handlePasswordInputValidation = computed(() =>
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/g.test(password.value)
+);
+const isSubmitButtonDisabled = () =>
+  handleUserNameInputValidation.value && handlePasswordInputValidation.value ? false : true;
 </script>
 
 <template>
-  <div class="view login">
-    <h1>Talking Pulse</h1>
-    <h2>Вдохновлённый на освоение Vue чат</h2>
-    <form class="login-form" @submit.prevent="handleLoginFormSubmit">
+  <div class="login">
+    <!-- <h1>Talking Pulse</h1>
+    <h2>Вдохновлённый на освоение Vue чат</h2> -->
+    <form class="login-form" @submit.prevent="handleLoginFormSubmit" autocomplete="off" novalidate>
       <div class="form-inner">
-        <p>Авторизация</p>
+        <h1 class="greeting">Рады видеть вас вновь! 👋</h1>
         <label for="username">
-          Введите имя пользователя
-          <input type="text" v-model="username" placeholder="Имя" required />
-          <button type="submit" :disabled="!handleUserNameInputValidation">Войти</button>
+          Имя пользователя
+          <input
+            id="username"
+            type="text"
+            v-model="username"
+            placeholder="Введите имя пользователя"
+            required
+          />
         </label>
+        <label for="password">
+          Пароль
+          <input
+            id="password"
+            :type="isEyeOpened ? 'text' : 'password'"
+            class="password"
+            v-model="password"
+            placeholder="Введите пароль"
+            required
+          />
+          <span class="eye" :class="{ 'eye-opened': isEyeOpened }" @click="handleEyeClick"></span>
+        </label>
+        <button type="submit" :disabled="isSubmitButtonDisabled">Войти</button>
       </div>
     </form>
   </div>
 </template>
 <style lang="scss">
-.view {
+.login {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  min-height: 100vh;
   margin: 0 auto;
+  padding-top: 12rem;
+  align-items: center;
+  max-width: clamp(288px, 600px, 30%);
+  // h1 {
+  // font-size: clamp(2rem, 3vw + 1rem, 4rem);
+  // font-family: 'Pacifico';
+  // }
+  h2 {
+    width: max-content;
+    font-size: clamp(1rem, 0.2vw + 1rem, 2rem);
+  }
 
-  &.login {
-    align-items: center;
-    max-width: clamp(288px, 600px, 30%);
-    h1 {
-      font-size: clamp(2rem, 3vw + 1rem, 4rem);
-      font-family: 'Pacifico';
-    }
-    h2 {
-      width: max-content;
-      font-size: clamp(1rem, 0.2vw + 1rem, 2rem);
-      font-family: 'Helvetica Neue';
-    }
+  .login-form {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-top: 50px;
 
-    .login-form {
+    .form-inner {
       display: block;
-      width: 100%;
-      padding: 15px;
-      margin-top: 50px;
+      background-color: #fff;
+      padding: 50px 25px;
+      border-radius: 16px;
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 
-      .form-inner {
+      .greeting {
+        font-size: clamp(0.5rem, 0.3vw + 1.3rem, 2rem);
+        margin-bottom: 20px;
+      }
+
+      label {
         display: block;
-        background-color: #fff;
-        padding: 50px 25px;
-        border-radius: 16px;
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+        color: #aaa;
+        font-size: 1rem;
+        transition: 0.4s;
+        position: relative;
 
-        p {
-          font-size: clamp(0.5rem, 0.3vw + 1.3rem, 2rem);
-          margin-bottom: 20px;
+        &:focus-within {
+          color: #c38f2c;
+
+          input {
+            background-color: #fff;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+
+            &::placeholder {
+              color: #666;
+            }
+          }
         }
 
-        label {
-          display: block;
-          margin-bottom: 5px;
-          color: #aaa;
-          font-size: 1rem;
-          transition: 0.4s;
-        }
-
-        input[type='text'] {
-          appearance: none;
-          border: none;
-          outline: none;
-          background: none;
-
+        input {
           display: block;
           width: 100%;
           padding: 10px 15px;
-          border-radius: 8px;
-          margin-bottom: 15px;
+          border-radius: 10px;
+          border: #c0bfbf 1px solid;
+          position: relative;
 
           color: #333;
           font-size: 18px;
 
           box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-          background-color: #f3f3f3;
 
           transition: 0.4s;
 
@@ -102,47 +133,49 @@ const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(userna
             transition: 0.4s;
           }
         }
+      }
 
-        button[type='submit'] {
-          appearance: none;
-          border: none;
-          outline: none;
-          background: none;
+      .eye {
+        background-image: url('../assets/eye-closed.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 28px;
+        height: 11px;
 
-          display: block;
-          width: 100%;
-          padding: 10px 15px;
-          background-color: #ffc04c;
-          border-radius: 8px;
+        position: absolute;
+        top: 42px;
+        right: 8px;
+        cursor: pointer;
 
-          color: #fff;
-          font-size: 1.1rem;
-          font-weight: 500;
-          transition: background-color 0.5s ease;
+        &.eye-opened {
+          background-image: url('../assets/eye-opened.svg');
+          width: 25px;
+          height: 25px;
+          top: 35px;
+          right: 12px;
+        }
+      }
 
-          &:hover:enabled {
-            background-color: #f5b133;
-          }
+      button[type='submit'] {
+        display: block;
+        width: 70%;
+        padding: 10px 15px;
+        background-color: #ffc04c;
+        border-radius: 8px;
+        margin-inline: auto;
 
-          &:disabled {
-            opacity: 0.6;
-            cursor: auto;
-          }
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: background-color 0.5s ease;
+
+        &:hover:enabled {
+          background-color: #f5b133;
         }
 
-        &:focus-within {
-          label {
-            color: #c38f2c;
-          }
-
-          input[type='text'] {
-            background-color: #fff;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-
-            &::placeholder {
-              color: #666;
-            }
-          }
+        &:disabled {
+          opacity: 0.6;
+          cursor: auto;
         }
       }
     }
