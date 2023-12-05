@@ -14,21 +14,24 @@ const handleLoginFormSubmit = () => {
   router.push('/messages');
 };
 const handleEyeClick = () => (isEyeOpened.value = !isEyeOpened.value);
-const handleUserNameInputValidation = computed(() => /[A-Za-z]{2,}/g.test(username.value));
+const handleUserNameInputValidation = computed(() => {
+  return /[A-Za-z]{2,}/.test(username.value);
+});
 const handlePasswordInputValidation = computed(() =>
-  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/g.test(password.value)
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password.value)
 );
-const isSubmitButtonDisabled = () =>
-  handleUserNameInputValidation.value && handlePasswordInputValidation.value ? false : true;
+const isSubmitButtonDisabled = computed(() =>
+  handleUserNameInputValidation.value && handlePasswordInputValidation.value ? false : true
+);
 </script>
 
 <template>
-  <div class="login">
+  <section class="login">
     <!-- <h1>Talking Pulse</h1>
     <h2>Вдохновлённый на освоение Vue чат</h2> -->
     <form class="login-form" @submit.prevent="handleLoginFormSubmit" autocomplete="off" novalidate>
       <div class="form-inner">
-        <h1 class="greeting">Рады видеть вас вновь! 👋</h1>
+        <h1 class="greeting">Рады видеть вас вновь!&nbsp;👋</h1>
         <label for="username">
           Имя пользователя
           <input
@@ -49,54 +52,55 @@ const isSubmitButtonDisabled = () =>
             placeholder="Введите пароль"
             required
           />
-          <span class="eye" :class="{ 'eye-opened': isEyeOpened }" @click="handleEyeClick"></span>
+          <span class="eye" :class="{ eye_opened: isEyeOpened }" @click="handleEyeClick"></span>
         </label>
         <button type="submit" :disabled="isSubmitButtonDisabled">Войти</button>
       </div>
     </form>
-  </div>
+    <div class="login-bg">
+      <div class="login-to-registry">
+        <p>Вы у нас в первый раз?</p>
+        <button type="button" @click="router.push('/registry')">Зарегистрироваться &rarr;</button>
+      </div>
+    </div>
+  </section>
 </template>
 <style lang="scss">
 .login {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: 0 auto;
-  padding-top: 12rem;
-  align-items: center;
-  max-width: clamp(288px, 600px, 30%);
+  margin: auto;
+  width: clamp(288px, 60vw, 75%);
+  height: 650px;
+  border-radius: 16px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  background-color: rgb(248, 230, 175);
+  overflow: hidden;
   // h1 {
   // font-size: clamp(2rem, 3vw + 1rem, 4rem);
   // font-family: 'Pacifico';
   // }
-  h2 {
-    width: max-content;
-    font-size: clamp(1rem, 0.2vw + 1rem, 2rem);
-  }
 
   .login-form {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    margin-top: 50px;
+    flex: 1 0 400px;
+    padding: 6rem 15px 15px;
+    background-color: #fff;
 
     .form-inner {
       display: block;
-      background-color: #fff;
       padding: 50px 25px;
-      border-radius: 16px;
-      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 
       .greeting {
-        font-size: clamp(0.5rem, 0.3vw + 1.3rem, 2rem);
+        font-size: clamp(0.5rem, 0.3vw + 1.3rem, 1.8rem);
         margin-bottom: 20px;
+        width: max-content;
       }
 
       label {
         display: block;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         color: #aaa;
         font-size: 1rem;
+        line-height: 1.5rem;
         transition: 0.4s;
         position: relative;
 
@@ -143,25 +147,25 @@ const isSubmitButtonDisabled = () =>
         height: 11px;
 
         position: absolute;
-        top: 42px;
+        top: 45px;
         right: 8px;
         cursor: pointer;
 
-        &.eye-opened {
+        &.eye_opened {
           background-image: url('../assets/eye-opened.svg');
           width: 25px;
           height: 25px;
-          top: 35px;
+          top: 36px;
           right: 12px;
         }
       }
 
       button[type='submit'] {
         display: block;
-        width: 70%;
+        width: clamp(200px, 5vw, 65%);
         padding: 10px 15px;
         background-color: #ffc04c;
-        border-radius: 8px;
+        border-radius: 10px;
         margin-inline: auto;
 
         color: #fff;
@@ -176,6 +180,41 @@ const isSubmitButtonDisabled = () =>
         &:disabled {
           opacity: 0.6;
           cursor: auto;
+        }
+      }
+    }
+  }
+
+  .login-bg {
+    background-image: url('../assets/waves.svg');
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+
+    .login-to-registry {
+      margin: auto;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
+      text-align: center;
+
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+
+      button {
+        color: #000000;
+        border: #a86917 1px solid;
+        border-radius: 20px;
+        padding-block: 10px;
+        width: clamp(200px, 5vw, 65%);
+        opacity: 1;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          opacity: 0.6;
+          border: #f53333 1px solid;
         }
       }
     }

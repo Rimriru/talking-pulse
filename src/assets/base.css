@@ -9,7 +9,6 @@
 }
 
 body {
-  min-height: 100vh;
   background-color: rgb(249, 235, 192);
   transition:
     color 0.5s,
