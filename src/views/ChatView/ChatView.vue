@@ -3,9 +3,9 @@ import { useUserStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import { push, set, onValue, serverTimestamp } from '@firebase/database';
-import { messagesRef } from '../../utils/db';
-import type { Messages } from './ChatPage.types';
-import timeConverter from '@/utils/timeConverter';
+import { messagesRef } from '@/composables/db';
+import timeConverter from '@/composables/useTimeConverter';
+import type { Messages } from './ChatView.types';
 
 const store = useUserStore();
 const router = useRouter();

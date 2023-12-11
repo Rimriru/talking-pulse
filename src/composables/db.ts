@@ -14,7 +14,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-// refs
+// ref to messages
 const messagesRef = ref(database, 'messages');
 
 export { messagesRef };

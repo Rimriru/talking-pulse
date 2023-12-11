@@ -1,0 +1,20 @@
+.eye {
+  background-image: url('../../../images/eye-closed.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 28px;
+  height: 11px;
+
+  position: absolute;
+  top: 45px;
+  right: 8px;
+  cursor: pointer;
+
+  &.eye_opened {
+    background-image: url('../../../images/eye-opened.svg');
+    width: 25px;
+    height: 25px;
+    top: 36px;
+    right: 12px;
+  }
+}

@@ -1,4 +1,4 @@
-const timeConverter = (timestamp: number) => {
+const useTimeConverter = (timestamp: number) => {
   const date = new Date(timestamp);
   const hour = date.getHours();
   const minutes = date.getMinutes();
@@ -6,4 +6,4 @@ const timeConverter = (timestamp: number) => {
   return `${hour}:${minutes < 10 ? '0' + minutes : minutes}`;
 };
 
-export default timeConverter;
+export default useTimeConverter;

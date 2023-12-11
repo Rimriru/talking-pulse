@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { reactive, ref } from 'vue';
 import type { Ref } from 'vue';
-import type { Messages } from '@/components/ChatPage/ChatPage.types';
+import type { Messages } from '@/views/ChatView/ChatView.types';
 
 export const useUserStore = defineStore('user', () => {
   const user = reactive({
