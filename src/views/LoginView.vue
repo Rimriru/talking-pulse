@@ -29,7 +29,7 @@ const isSubmitButtonDisabled = computed(() =>
 </script>
 
 <template>
-  <section class="login">
+  <main class="login">
     <LoginRegistryForm
       @submit="handleLoginFormSubmit"
       :is-submit-button-disabled="isSubmitButtonDisabled"
@@ -63,17 +63,16 @@ const isSubmitButtonDisabled = computed(() =>
         <button type="button" @click="router.push('/register')">Зарегистрироваться &rarr;</button>
       </div>
     </div>
-  </section>
+  </main>
 </template>
 <style lang="scss">
 .login {
   display: flex;
   margin: auto;
-  width: clamp(288px, 60vw, 75%);
+  width: clamp(288px, 60vw, 80%);
   height: 650px;
   border-radius: 16px;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-  background-color: rgb(248, 230, 175);
   overflow: hidden;
 
   .login-bg {
@@ -86,10 +85,10 @@ const isSubmitButtonDisabled = computed(() =>
     .login-to-registry {
       margin: auto;
       color: rgba(255, 255, 255, 0.9);
-      text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
       text-align: center;
 
       p {
+        text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
         font-size: 1.2rem;
         margin-bottom: 10px;
       }
@@ -100,7 +99,6 @@ const isSubmitButtonDisabled = computed(() =>
         border-radius: 20px;
         padding-block: 10px;
         width: clamp(200px, 5vw, 65%);
-        opacity: 1;
         transition: all 0.3s ease-in-out;
 
         &:hover {
@@ -109,6 +107,28 @@ const isSubmitButtonDisabled = computed(() =>
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 1210px) {
+  .login {
+    .login-bg {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .login {
+    margin-inline: 80px;
+    width: calc(100% - 80px * 2);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .login {
+    margin-inline: 40px;
+    width: calc(100% - 40px * 2);
   }
 }
 </style>
