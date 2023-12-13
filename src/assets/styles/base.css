@@ -9,7 +9,6 @@
 }
 
 body {
-  /* background-color: rgb(249, 235, 192); */
   transition:
     color 0.5s,
     background-color 0.5s;

@@ -1,12 +1,22 @@
 <template>
   <form class="form" @submit.prevent="emit('submit')" autocomplete="off" novalidate>
     <div class="form-inner">
-      <h1 class="greeting">Рады видеть вас вновь!&nbsp;👋</h1>
+      <h1 class="greeting">
+        {{
+          $props.isPlacedInLogin ? 'Рады видеть вас вновь!&nbsp;' : 'Давайте познакомимся!&nbsp;'
+        }}👋
+      </h1>
       <slot></slot>
-      <button type="submit" :disabled="isSubmitButtonDisabled">Войти</button>
+      <button type="submit" :disabled="isSubmitButtonDisabled">
+        {{ $props.isPlacedInLogin ? 'Войти' : 'Зарегистрироваться' }}
+      </button>
       <p class="form__text" v-if="isNarrowMonitor">
-        Вы у нас в первый раз?
-        <a class="form__link" @click="router.push('/register')">Зарегистрироваться</a>
+        {{ $props.isPlacedInLogin ? 'Ещё нет аккаунта?' : 'Уже есть аккаунт?' }}
+        <a
+          class="form__link"
+          @click="$props.isPlacedInLogin ? router.push('/register') : router.push('/login')"
+          >{{ $props.isPlacedInLogin ? 'Зарегистрироваться' : 'Войти' }}</a
+        >
       </p>
     </div>
   </form>
@@ -16,7 +26,10 @@
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import useWindowResize from '@/composables/useWindowResize';
-defineProps(['isSubmitButtonDisabled']);
+defineProps<{
+  isSubmitButtonDisabled: boolean;
+  isPlacedInLogin: boolean;
+}>();
 
 const emit = defineEmits(['submit']);
 

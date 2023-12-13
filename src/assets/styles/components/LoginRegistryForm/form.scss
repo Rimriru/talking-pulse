@@ -1,12 +1,11 @@
 .form {
-  padding: 6rem 15px 15px;
   background-color: #fff;
   max-width: 400px;
-  margin-inline: auto;
+  margin: auto;
 
   .form-inner {
     display: block;
-    padding: 50px 25px;
+    padding-inline: 40px;
 
     .greeting {
       font-size: clamp(1rem, 4vw, 25px);
@@ -60,8 +59,8 @@
 
     button[type='submit'] {
       display: block;
-      width: clamp(200px, 5vw, 65%);
-      padding: 10px 15px;
+      width: clamp(200px, 8vw, 70%);
+      padding-block: 10px;
       background-color: #ffc04c;
       border-radius: 10px;
       margin-inline: auto;

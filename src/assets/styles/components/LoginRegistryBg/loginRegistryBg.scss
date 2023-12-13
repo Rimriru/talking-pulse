@@ -1,0 +1,39 @@
+.login-registry-bg {
+  background-image: url('../../../images/waves.svg');
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+
+  .to-login-or-registry {
+    margin: auto;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+
+    p {
+      text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.3);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    button {
+      color: #000000;
+      border: #a86917 1px solid;
+      border-radius: 20px;
+      padding-block: 10px;
+      width: clamp(200px, 5vw, 65%);
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        opacity: 0.6;
+        border: #f53333 1px solid;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1210px) {
+  .login-registry-bg {
+    display: none;
+  }
+}
