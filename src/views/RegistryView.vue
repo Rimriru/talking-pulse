@@ -58,7 +58,7 @@ const v$ = useVuelidate(
 <template>
   <main class="registry">
     <LoginRegistryBg :is-placed-in-login="false"> Мы знакомы? </LoginRegistryBg>
-    <LoginRegistryForm :is-submit-button-disabled="true" :is-placed-in-login="false">
+    <LoginRegistryForm :is-submit-button-disabled="v$.$invalid" :is-placed-in-login="false">
       <TextInput
         :input-id="'username'"
         :label-text="'Имя пользователя'"
