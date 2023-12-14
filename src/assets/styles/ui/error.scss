@@ -1,0 +1,14 @@
+@use '../variables.scss' as *;
+
+.error {
+  font-size: 14px;
+  line-height: 1.1;
+  visibility: hidden;
+  color: $invalid;
+  margin-block: 5px 20px;
+  display: block;
+
+  &_visible {
+    visibility: visible;
+  }
+}

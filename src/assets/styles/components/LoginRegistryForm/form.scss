@@ -1,3 +1,5 @@
+@use '../../variables.scss' as *;
+
 .form {
   background-color: #fff;
   max-width: 400px;
@@ -15,15 +17,22 @@
 
     label {
       display: block;
-      margin-bottom: 30px;
       color: #aaa;
       font-size: 1rem;
       line-height: 1.5rem;
       transition: 0.4s;
       position: relative;
 
+      &.invalid {
+        color: $invalid;
+      }
+
       &:focus-within {
         color: #c38f2c;
+
+        &.invalid {
+          color: $invalid;
+        }
 
         input {
           background-color: #fff;
@@ -60,6 +69,7 @@
     button[type='submit'] {
       display: block;
       width: clamp(200px, 8vw, 70%);
+      padding: 0;
       padding-block: 10px;
       background-color: #ffc04c;
       border-radius: 10px;

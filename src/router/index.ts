@@ -10,12 +10,14 @@ const router = createRouter({
     {
       path: '/register',
       name: 'Register',
-      component: RegistryView
+      component: RegistryView,
+      meta: { transition: 'fade' }
     },
     {
       path: '/login',
       name: 'Login',
-      component: LoginView
+      component: LoginView,
+      meta: { transition: 'fade' }
     },
     {
       path: '/messages',

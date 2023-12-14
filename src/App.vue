@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router';
 
 <template>
   <RouterView v-slot="{ Component, route }">
-    <Transition name="fade" mode="out-in">
+    <Transition :name="route.meta.transition" mode="out-in">
       <component :is="Component" :key="route.path" />
     </Transition>
   </RouterView>
@@ -18,6 +18,6 @@ import { RouterView } from 'vue-router';
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.4s ease-out;
 }
 </style>
