@@ -18,6 +18,6 @@ import { RouterView } from 'vue-router';
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.4s ease-out;
+  transition: opacity 0.3s ease-out;
 }
 </style>

@@ -4,6 +4,7 @@ import { useUserStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email, helpers } from '@vuelidate/validators';
+import { useUserLogin } from '@/composables/useFirebaseAuth';
 import LoginRegistryForm from '@/components/LoginRegistryForm.vue';
 import TextInput from '@/components/TextInput.vue';
 import InputEye from '@/components/InputEye.vue';
@@ -15,12 +16,17 @@ const emailTypedIn = ref('');
 const passwordTypedIn = ref('');
 const isEyeOpened = ref(false);
 
-//const store = useUserStore();
+const store = useUserStore();
 const router = useRouter();
 
-const handleLoginFormSubmit = () => {
-  //store.setUser(username.value);
-  router.push('/messages');
+const handleLoginFormSubmit = async () => {
+  try {
+    const user: any = await useUserLogin(emailTypedIn.value, passwordTypedIn.value);
+    store.setUser(user.displayName);
+    router.push('/messages');
+  } catch (error) {
+    console.log(error);
+  }
 };
 const handleEyeClick = () => (isEyeOpened.value = !isEyeOpened.value);
 const editEmail = (val: string) => {

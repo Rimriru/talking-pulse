@@ -1,22 +1,38 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
-import { required, email, helpers, minLength } from '@vuelidate/validators';
+import { required, email, helpers, minLength, maxLength } from '@vuelidate/validators';
+import { useUserStore } from '@/stores/userStore';
+import { useRouter } from 'vue-router';
 import LoginRegistryBg from '@/components/LoginRegistryBg.vue';
 import LoginRegistryForm from '@/components/LoginRegistryForm.vue';
 import TextInput from '@/components/TextInput.vue';
 import InputEye from '@/components/InputEye.vue';
+import { useUserRegistration } from '@/composables/useFirebaseAuth';
 import * as regExp from '@/utils/regExp';
 import * as validationMessages from '@/utils/validationMessages';
 
+const store = useUserStore();
+const router = useRouter();
 const isEyeOpened = ref(false);
 
 const usernameTypedIn = ref('');
-const usernameMinLingth = ref(6);
+const usernameMinLength = ref(6);
+const usernameMaxLength = ref(16);
 const emailTypedIn = ref('');
 const passwordTypedIn = ref('');
 
 const handleEyeClick = () => (isEyeOpened.value = !isEyeOpened.value);
+
+const handleRegistryFormSubmit = async () => {
+  try {
+    await useUserRegistration(usernameTypedIn.value, emailTypedIn.value, passwordTypedIn.value);
+    store.setUser(usernameTypedIn.value);
+    router.push('/messages');
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // Registry form validation
 
@@ -32,7 +48,11 @@ const validationRules = {
     ),
     minLength: helpers.withMessage(
       ({ $params }) => `Минимальное количество символов – ${$params.min}`,
-      minLength(usernameMinLingth)
+      minLength(usernameMinLength)
+    ),
+    maxLength: helpers.withMessage(
+      ({ $params }) => `Максимальное количество символов – ${$params.max}`,
+      maxLength(usernameMaxLength)
     )
   },
   emailTypedIn: {
@@ -58,7 +78,11 @@ const v$ = useVuelidate(
 <template>
   <main class="registry">
     <LoginRegistryBg :is-placed-in-login="false"> Мы знакомы? </LoginRegistryBg>
-    <LoginRegistryForm :is-submit-button-disabled="v$.$invalid" :is-placed-in-login="false">
+    <LoginRegistryForm
+      :is-submit-button-disabled="v$.$invalid"
+      :is-placed-in-login="false"
+      @submit="handleRegistryFormSubmit"
+    >
       <TextInput
         :input-id="'username'"
         :label-text="'Имя пользователя'"

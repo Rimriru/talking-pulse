@@ -17,4 +17,4 @@ const database = getDatabase(app);
 // ref to messages
 const messagesRef = ref(database, 'messages');
 
-export { messagesRef };
+export { app, messagesRef };

@@ -3,16 +3,22 @@ import { useUserStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import { push, set, onValue, serverTimestamp } from '@firebase/database';
-import { messagesRef } from '@/composables/db';
+import { messagesRef } from '@/composables/useFirebase';
+import { useUserLogout } from '@/composables/useFirebaseAuth';
 import timeConverter from '@/composables/useTimeConverter';
 import type { Messages } from './ChatView.types';
 
 const store = useUserStore();
 const router = useRouter();
 
-const logout = () => {
-  router.push('/login');
-  store.$reset();
+const logout = async () => {
+  try {
+    await useUserLogout();
+    router.push('/login');
+    store.$reset();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const message = ref('');
@@ -233,7 +239,7 @@ onMounted(() => {
 
       button[type='submit'] {
         padding: 0;
-        background: no-repeat center url('../../assets/send-btn.svg');
+        background: no-repeat center url('@/assets/images/send-btn.svg');
         background-size: contain;
         width: 38px;
         height: 38px;
