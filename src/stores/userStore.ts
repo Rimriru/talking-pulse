@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import type { Ref } from 'vue';
-import type { Messages } from '@/components/ChatPage/ChatPage.types';
+import type { Messages } from '@/views/ChatView/ChatView.types';
 
 export const useUserStore = defineStore('user', () => {
-  const user = ref({
+  const user = reactive({
     userName: '',
     isUserLoggedIn: false
   });
@@ -12,13 +12,13 @@ export const useUserStore = defineStore('user', () => {
   const messages: Ref<Messages> = ref([]);
 
   function $reset() {
-    user.value.userName = '';
-    user.value.isUserLoggedIn = false;
+    user.userName = '';
+    user.isUserLoggedIn = false;
   }
 
   function setUser(userName: string) {
-    user.value.userName = userName;
-    user.value.isUserLoggedIn = true;
+    user.userName = userName;
+    user.isUserLoggedIn = true;
   }
 
   function setMessages(array: Messages) {

@@ -1,0 +1,9 @@
+@import './base.css';
+
+#app {
+  max-width: 100%;
+  color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
