@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router';
 
 <template>
   <RouterView v-slot="{ Component, route }">
-    <Transition :name="(route.meta.transition as string)" mode="out-in">
+    <Transition :name="route.meta.transition as string" mode="out-in">
       <component :is="Component" :key="route.path" />
     </Transition>
   </RouterView>

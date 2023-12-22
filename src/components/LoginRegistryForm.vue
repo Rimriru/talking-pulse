@@ -37,7 +37,7 @@ const router = useRouter();
 
 const { width } = useWindowResize();
 
-const isNarrowMonitor = computed(() => (width.value <= 1210 ? true : false));
+const isNarrowMonitor = computed(() => (width.value <= 850 ? true : false));
 </script>
 
 <style lang="scss">
