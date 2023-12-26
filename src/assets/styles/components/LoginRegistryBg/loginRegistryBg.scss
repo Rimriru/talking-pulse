@@ -1,9 +1,12 @@
+@use '../../variables.scss' as *;
+
 .login-registry-bg {
   background-image: url('../../../images/waves.svg');
-  width: 100%;
+  width: clamp(350px, 50vw, 70%);
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
+  padding: 10px;
 
   .to-login-or-registry {
     margin: auto;
@@ -32,7 +35,7 @@
   }
 }
 
-@media screen and (max-width: 1210px) {
+@media screen and (max-width: $pre-small-screen) {
   .login-registry-bg {
     display: none;
   }

@@ -1,0 +1,43 @@
+.fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loader {
+    width: 50px;
+    aspect-ratio: 1;
+    border: 2px solid;
+    border-radius: 50%;
+    display: grid;
+    animation: l11 1.5s infinite linear;
+    transform-origin: 50% 80%;
+  
+    &::before, &::after {
+      content: "";
+      grid-area: 1/1;
+      border: inherit;
+      border-radius: 50%;
+      animation: inherit;
+      animation-duration: 1s;
+      transform-origin: inherit;
+    }
+  
+    &::after {
+      --s:-1;
+    }
+  }
+
+}
+
+@keyframes l11 {
+  100% {
+    transform:rotate(calc(var(--s,1)*1turn))
+  }
+}
