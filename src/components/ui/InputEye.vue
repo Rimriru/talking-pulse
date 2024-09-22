@@ -9,5 +9,5 @@ const emit = defineEmits(['handleEyeClick']);
 </script>
 
 <style lang="scss">
-@import url('../assets/styles/components/InputEye/eye.scss');
+@import url('@/assets/styles/components/InputEye/eye.scss');
 </style>

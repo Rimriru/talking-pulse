@@ -6,3 +6,43 @@
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
+
+@mixin animation-shake($initialPosition: 0) {
+  @if $initialPosition == 0 {
+    @keyframes shake {
+      0% {
+        transform: translateX(0px);
+      }
+      25% {
+        transform: translateX(10px);
+      }
+      50% {
+        transform: translateX(-10px);
+      }
+      75% {
+        transform: translateX(10px);
+      }
+      100% {
+        transform: translateX(0px);
+      }
+    }
+  } @else {
+    @keyframes shake-with-intial-position {
+      0% {
+        transform: translateX($initialPosition);
+      }
+      25% {
+        transform: translateX(calc($initialPosition + 10px));
+      }
+      50% {
+        transform: translateX(calc($initialPosition - 10px));
+      }
+      75% {
+        transform: translateX(calc($initialPosition + 10px));
+      }
+      100% {
+        transform: translateX($initialPosition);
+      }
+    }
+  }
+}

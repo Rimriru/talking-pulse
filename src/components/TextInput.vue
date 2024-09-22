@@ -1,15 +1,14 @@
 <template>
-  <label :for="$props.inputId" :class="{ invalid: !$props.isValid }">
-    {{ $props.labelText }}
+  <label :for="inputId" :class="{ invalid: !isValid }">
+    {{ labelText }}
     <input
-      :id="$props.inputId"
-      :type="$props.type"
+      :id="inputId"
+      :type="type"
       v-model="value"
       @input="emit('update:value', value)"
-      :placeholder="$props.placeholder"
-      autocomplete="off"
+      :placeholder="placeholder"
     />
-    <slot></slot>
+    <slot />
   </label>
 </template>
 

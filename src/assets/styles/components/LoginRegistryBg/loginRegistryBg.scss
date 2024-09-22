@@ -1,8 +1,8 @@
-@use '../../variables.scss' as *;
+@use '@/assets/styles/variables.scss' as *;
 
 .login-registry-bg {
-  background-image: url('../../../images/waves.svg');
-  width: clamp(350px, 50vw, 70%);
+  background-image: url('@/assets/images/waves.svg');
+  width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -28,8 +28,7 @@
       transition: all 0.3s ease-in-out;
 
       &:hover {
-        opacity: 0.6;
-        border: #f53333 1px solid;
+        border: $red 1px solid;
       }
     }
   }
